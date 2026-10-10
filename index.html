@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCP and UDP in Computer Networks — Engineering Presentation</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Presentation Progress Bar -->
+  <div id="presentation-progress-bar" class="presentation-progress-bar" style="width: 8.33%;"></div>
+
+  <!-- Ambient Cyber Networking Canvas Background -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Presentation Viewport & Scaler Container (16:9 Aspect Ratio) -->
+  <main id="presentation-viewport">
+    <div id="presentation-canvas">
+      <div class="slides-deck">
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 1: Cover Slide                                      -->
+        <!-- ========================================================= -->
+        <section class="slide slide-cover active" data-slide-index="0" data-theme="dark">
+          <div class="slide-inner">
+            <div class="cover-content">
+              <div class="cover-card">
+                <div class="cover-badge">COMPUTER NETWORKS · TRANSPORT LAYER</div>
+                <h1 class="cover-title">TCP AND UDP<br>IN COMPUTER<br>NETWORKS</h1>
+                <div class="cover-underline"></div>
+                <p class="cover-subtitle" data-step="1">
+                  How applications exchange data, and why reliability and latency lead to different choices.
+                </p>
+                <div class="cover-footer" data-step="2">
+                  <span>Seminar overview · connection, delivery, and trade-offs</span>
+                </div>
+                <div data-step="2">
+                  <span class="cover-prompt">Press Spacebar to Begin Presentation →</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 2: 01 · THE TRANSPORT LAYER                         -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="1" data-theme="mint">
+          <div class="slide-inner">
+            <div class="slide-tag">01 · THE TRANSPORT LAYER</div>
+            <h2 class="slide-title">The transport layer connects applications</h2>
+            <div class="slide-underline"></div>
+            <p class="slide-lead">
+              IP moves packets between hosts; the transport layer moves data between applications on those hosts. Port numbers identify the sending and receiving applications. TCP and UDP sit above IP and below application protocols.
+            </p>
+
+            <div class="layers-grid">
+              <!-- Card 1: Application -->
+              <div class="layer-card yellow-card" data-step="1">
+                <svg class="layer-icon" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M12 3a14.5 14.5 0 0 0 0 18M12 3a14.5 14.5 0 0 1 0 18M3 12h18"/>
+                </svg>
+                <h3 class="layer-name">Application</h3>
+                <p class="layer-desc">Web, video, games, DNS</p>
+              </div>
+
+              <!-- Card 2: Transport -->
+              <div class="layer-card teal-card" data-step="2">
+                <svg class="layer-icon" viewBox="0 0 24 24">
+                  <rect x="4" y="4" width="16" height="16" rx="2"/>
+                  <path d="M9 9h6v6H9zM9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>
+                </svg>
+                <h3 class="layer-name">Transport</h3>
+                <p class="layer-desc">
+                  <strong>TCP</strong> or <strong>UDP</strong><br>
+                  Ports and delivery behavior
+                </p>
+              </div>
+
+              <!-- Card 3: Network -->
+              <div class="layer-card yellow-card" data-step="3">
+                <svg class="layer-icon" viewBox="0 0 24 24">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+                <h3 class="layer-name">Network</h3>
+                <p class="layer-desc">IP addresses and routing</p>
+              </div>
+            </div>
+
+            <div class="slide2-caption" data-step="4">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <span>Application data becomes transport segments or datagrams, then IP packets.</span>
+            </div>
+
+            <span class="slide-page-number">02</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 3: TCP · TRANSMISSION CONTROL PROTOCOL              -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="2">
+          <div class="split-slide-container">
+            <!-- Left Crimson Hero -->
+            <div class="split-hero-crimson">
+              <div class="hero-pill-tag">TCP · TRANSMISSION CONTROL PROTOCOL</div>
+              <h2 class="hero-giant-title">RELIABLE<br>DELIVERY</h2>
+              <div class="hero-giant-sub">OVERHEAD IS THE TRADE</div>
+            </div>
+
+            <!-- Right Content Mint -->
+            <div class="split-content-mint">
+              <h3 class="slide-title">TCP trades overhead<br>for reliability</h3>
+              <div class="slide-underline"></div>
+
+              <div class="feature-list">
+                <div class="feature-item" data-step="1">
+                  <h4 class="feature-title">Connection-oriented</h4>
+                  <p class="feature-body">TCP establishes a connection before application data flows.</p>
+                </div>
+                <div class="feature-divider" data-step="2"></div>
+                <div class="feature-item" data-step="2">
+                  <h4 class="feature-title">Reliable and ordered</h4>
+                  <p class="feature-body">Sequence numbers, acknowledgements, and retransmission help deliver complete data in order.</p>
+                </div>
+                <div class="feature-divider" data-step="3"></div>
+                <div class="feature-item" data-step="3">
+                  <h4 class="feature-title">Familiar example</h4>
+                  <p class="feature-body">Loading a web page or transferring a file favors correctness over the smallest possible delay.</p>
+                </div>
+              </div>
+
+              <span class="slide-page-number">03</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 4: 02 · TCP CONNECTION SETUP (3-Way Handshake)       -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="3" data-theme="mint">
+          <div class="slide-inner">
+            <div class="slide-tag">02 · TCP CONNECTION SETUP</div>
+            <h2 class="slide-title">TCP starts with a three-way handshake</h2>
+            <div class="slide-underline"></div>
+            <p class="slide-lead">
+              Before data transfer, both endpoints agree to begin a connection and synchronize sequence numbers.
+            </p>
+
+            <!-- Interactive Handshake Packet Animation Track -->
+            <div class="handshake-visualizer">
+              <div class="node-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                CLIENT (Host A)
+              </div>
+              <div class="packet-track">
+                <div id="handshake-packet" class="handshake-packet">SYN →</div>
+              </div>
+              <div class="node-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                SERVER (Host B)
+              </div>
+            </div>
+
+            <!-- 3 Handshake Step Cards -->
+            <div class="handshake-cards-grid">
+              <div class="handshake-card yellow-card" data-step="1">
+                <span class="step-badge">01</span>
+                <h3 class="handshake-direction">CLIENT → SERVER</h3>
+                <div class="handshake-signal">SYN</div>
+                <p class="handshake-text">Client requests a connection and synchronizes initial sequence number.</p>
+              </div>
+
+              <div class="handshake-card teal-card" data-step="2">
+                <span class="step-badge">02</span>
+                <h3 class="handshake-direction">SERVER → CLIENT</h3>
+                <div class="handshake-signal">SYN + ACK</div>
+                <p class="handshake-text">Server accepts request, acknowledges client sequence, and sends its own sequence number.</p>
+              </div>
+
+              <div class="handshake-card yellow-card" data-step="3">
+                <span class="step-badge">03</span>
+                <h3 class="handshake-direction">CLIENT → SERVER</h3>
+                <div class="handshake-signal">ACK</div>
+                <p class="handshake-text">Client confirms acknowledgment. Three-way handshake complete: <strong>Connection Established</strong>.</p>
+              </div>
+            </div>
+
+            <span class="slide-page-number">04</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 5: 03 · TCP SEGMENT FORMAT                          -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="4" data-theme="mint">
+          <div class="slide-inner">
+            <div class="slide-tag">03 · TCP SEGMENT FORMAT</div>
+            <h2 class="slide-title">TCP headers carry delivery control</h2>
+            <div class="slide-underline"></div>
+
+            <div class="segment-layout">
+              <!-- Left: Header Structure Table -->
+              <div class="segment-table-wrapper">
+                <table class="segment-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 18%;">32-BIT ROW</th>
+                      <th style="width: 60%;">FIELD</th>
+                      <th style="width: 22%;">BITS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-step="1">
+                      <td class="row-num">1</td>
+                      <td class="field-name">Source Port · Destination Port</td>
+                      <td class="field-bits">16 + 16</td>
+                    </tr>
+                    <tr data-step="1">
+                      <td class="row-num">2</td>
+                      <td class="field-name">Sequence Number</td>
+                      <td class="field-bits">32</td>
+                    </tr>
+                    <tr data-step="1">
+                      <td class="row-num">3</td>
+                      <td class="field-name">Acknowledgment Number</td>
+                      <td class="field-bits">32</td>
+                    </tr>
+                    <tr data-step="2">
+                      <td class="row-num">4</td>
+                      <td class="field-name">Data Offset · Reserved · Control Flags · Window Size</td>
+                      <td class="field-bits">4 + 6 + 6 + 16</td>
+                    </tr>
+                    <tr data-step="2">
+                      <td class="row-num">5</td>
+                      <td class="field-name">Checksum · Urgent Pointer</td>
+                      <td class="field-bits">16 + 16</td>
+                    </tr>
+                    <tr data-step="2">
+                      <td class="row-num">—</td>
+                      <td class="field-name">Options and Padding, if present</td>
+                      <td class="field-bits">Variable</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Right: Field Purpose & Highlights -->
+              <div class="segment-right-col">
+                <div>
+                  <div class="purpose-list-header">FIELD PURPOSE</div>
+                  <ul class="purpose-list">
+                    <li data-step="1">Sending application · Receiving application</li>
+                    <li data-step="1">Order and loss detection (Sequence tracking)</li>
+                    <li data-step="1">Next byte expected from peer (ACK number)</li>
+                    <li data-step="2">Header size, session state & flow control (Window)</li>
+                    <li data-step="2">Integrity validation (Checksum) & urgent data</li>
+                    <li data-step="2">Extends and aligns header on 32-bit boundary</li>
+                  </ul>
+                </div>
+
+                <div class="segment-highlight-cards" data-step="3">
+                  <div class="seg-highlight-card yellow-card">
+                    <div class="seg-card-tag">MINIMUM HEADER</div>
+                    <div class="seg-card-body">
+                      <strong>20 bytes</strong> before the Data/Payload.
+                    </div>
+                  </div>
+                  <div class="seg-highlight-card teal-card">
+                    <div class="seg-card-tag">AFTER THE HEADER</div>
+                    <div class="seg-card-body">
+                      <strong>Data / Payload</strong> carries application content.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <span class="slide-page-number">05</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 6: 04 · TCP DELIVERY                                -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="5" data-theme="mint">
+          <div class="slide-inner">
+            <div class="slide-tag">04 · TCP DELIVERY</div>
+            <h2 class="slide-title">TCP moves data through the network</h2>
+            <div class="slide-underline"></div>
+
+            <!-- Visual Transmission Diagram -->
+            <div class="delivery-diagram-container">
+              <!-- Client -->
+              <div class="delivery-node-card yellow-card">
+                <div class="node-role-tag">ENDPOINT A</div>
+                <h3 class="node-name">CLIENT</h3>
+                <p class="node-status-text">Application sends bytes.</p>
+              </div>
+
+              <!-- Connector 1 -->
+              <div class="delivery-connector">
+                <span class="connector-label">DATA →</span>
+                <div class="connector-line">
+                  <div id="tcp-pkt-1" class="flying-packet"></div>
+                </div>
+              </div>
+
+              <!-- Router -->
+              <div class="delivery-node-card teal-card">
+                <div class="node-role-tag">NETWORK HOP</div>
+                <h3 class="node-name">ROUTER</h3>
+                <p class="node-status-text">Forwards IP packets.</p>
+              </div>
+
+              <!-- Connector 2 -->
+              <div class="delivery-connector">
+                <span class="connector-label">→ DATA</span>
+                <div class="connector-line">
+                  <div id="tcp-pkt-2" class="flying-packet"></div>
+                </div>
+              </div>
+
+              <!-- Server -->
+              <div class="delivery-node-card yellow-card">
+                <div class="node-role-tag">ENDPOINT B</div>
+                <h3 class="node-name">SERVER</h3>
+                <p class="node-status-text">Receives bytes.</p>
+              </div>
+            </div>
+
+            <!-- Return ACK Line -->
+            <div class="ack-return-track" data-step="2">
+              <div class="ack-label">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                <span>← ACK Return Track: Server acknowledges receipt to Client</span>
+              </div>
+              <div class="ack-wire">
+                <div id="tcp-ack-pkt" class="flying-ack-packet">ACK ✓</div>
+              </div>
+            </div>
+
+            <!-- Key Takeaway Note -->
+            <div class="delivery-summary-note" data-step="3">
+              The acknowledgement confirms receipt. If data is missing or corrupted, TCP automatically retransmits it until verified.
+            </div>
+
+            <span class="slide-page-number">06</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 7: 05 · UDP · USER DATAGRAM PROTOCOL                 -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="6" data-theme="mint">
+          <div class="slide-inner">
+            <div class="udp-split-container">
+              <!-- Left Column: Content -->
+              <div>
+                <div class="slide-tag">05 · UDP · USER DATAGRAM PROTOCOL</div>
+                <h2 class="slide-title">UDP keeps communication lightweight</h2>
+                <div class="slide-underline"></div>
+                <p class="slide-lead" style="margin-bottom: 30px;">
+                  UDP is connectionless: independent datagrams need no session.
+                </p>
+
+                <div class="feature-list">
+                  <div class="feature-item" data-step="1">
+                    <h4 class="feature-title">Low overhead</h4>
+                    <p class="feature-body">Small headers and no handshake mean fast setup and instant transmission.</p>
+                  </div>
+                  <div class="feature-divider" data-step="2"></div>
+                  <div class="feature-item" data-step="2">
+                    <h4 class="feature-title">Few built-in guarantees</h4>
+                    <p class="feature-body">UDP does not promise delivery, ordering, or retransmission.</p>
+                  </div>
+                  <div class="feature-divider" data-step="3"></div>
+                  <div class="feature-item" data-step="3">
+                    <h4 class="feature-title">Online gaming</h4>
+                    <p class="feature-body">Online gaming favors fresh player positions over recovered old updates.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: High-Res Gamer Photo -->
+              <div class="udp-gamer-frame">
+                <img src="assets/images/gamer.jpg" alt="Competitive esports gaming with real-time UDP telemetry" class="udp-gamer-img">
+                <div class="udp-gamer-overlay">
+                  <div>
+                    <strong style="font-family: var(--font-display); font-size: 24px; display: block;">Real-Time Latency Priority</strong>
+                    <span style="font-size: 16px; color: #cbd5e1;">Fresh state > Retransmitted stale frames</span>
+                  </div>
+                  <div class="latency-badge">&lt; 15ms ping</div>
+                </div>
+              </div>
+            </div>
+
+            <span class="slide-page-number">07</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 8: 06 · UDP DELIVERY                                -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="7" data-theme="mint">
+          <div class="slide-inner">
+            <div class="slide-tag">06 · UDP DELIVERY</div>
+            <h2 class="slide-title">UDP sends datagrams without retransmission</h2>
+            <div class="slide-underline"></div>
+
+            <div class="udp-delivery-layout">
+              <!-- Left Client Card -->
+              <div class="delivery-node-card yellow-card">
+                <div class="node-role-tag">CLIENT</div>
+                <h3 class="node-name">Send</h3>
+                <p class="node-status-text">Datagrams leave independently without prior connection establishment.</p>
+              </div>
+
+              <!-- Center Datagram Tracks -->
+              <div class="udp-tracks-container">
+                <div id="udp-pkt-1" class="udp-track-row track-success" data-step="1">
+                  <span>DATAGRAM 1 &nbsp;→&nbsp; ROUTER &nbsp;→&nbsp; SERVER</span>
+                  <span class="status-indicator-tag success">✓ DELIVERED</span>
+                </div>
+
+                <div id="udp-pkt-2" class="udp-track-row track-success" data-step="2">
+                  <span>DATAGRAM 2 &nbsp;→&nbsp; ROUTER &nbsp;→&nbsp; SERVER</span>
+                  <span class="status-indicator-tag success">✓ DELIVERED</span>
+                </div>
+
+                <div id="udp-pkt-3" class="udp-track-row track-lost" data-step="3">
+                  <span>DATAGRAM 3 &nbsp;→&nbsp; ROUTER &nbsp;✕&nbsp; LOST</span>
+                  <span class="status-indicator-tag lost">✕ DROPPED</span>
+                </div>
+              </div>
+
+              <!-- Right Server Card -->
+              <div class="delivery-node-card teal-card" data-step="4">
+                <div class="node-role-tag">SERVER</div>
+                <h3 class="node-name">Continue</h3>
+                <p class="node-status-text">No built-in retransmission. The application decides what to do next.</p>
+              </div>
+            </div>
+
+            <div class="slide2-caption" data-step="4" style="border-left-color: var(--accent-crimson); margin-top: 15px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>The trade-off: less waiting and less overhead, with less delivery control.</span>
+            </div>
+
+            <span class="slide-page-number">08</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 9: 07 · UDP DATAGRAM FORMAT                         -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="8" data-theme="mint">
+          <div class="slide-inner">
+            <div class="slide-tag">07 · UDP DATAGRAM FORMAT</div>
+            <h2 class="slide-title">UDP headers are intentionally small</h2>
+            <div class="slide-underline"></div>
+
+            <!-- 4 Field Row -->
+            <div class="udp-header-visual" data-step="1">
+              <div class="udp-field-box teal-card">
+                <span class="field-bits-badge">16 BITS</span>
+                <span class="field-label-text">Source Port</span>
+              </div>
+              <div class="udp-field-box teal-card">
+                <span class="field-bits-badge">16 BITS</span>
+                <span class="field-label-text">Destination Port</span>
+              </div>
+              <div class="udp-field-box yellow-card">
+                <span class="field-bits-badge">16 BITS</span>
+                <span class="field-label-text">Length</span>
+              </div>
+              <div class="udp-field-box yellow-card">
+                <span class="field-bits-badge">16 BITS</span>
+                <span class="field-label-text">Checksum</span>
+              </div>
+            </div>
+
+            <!-- Cards Below Header -->
+            <div class="udp-format-cards">
+              <div class="min-header-hero-card" data-step="2">
+                <div class="hero-giant-number">8 bytes</div>
+                <div class="hero-number-tag">MINIMUM HEADER (Fixed Size)</div>
+              </div>
+
+              <div class="payload-desc-card" data-step="3">
+                <div class="payload-tag">AFTER THE FOUR FIELDS</div>
+                <h3 class="payload-title">Data / Payload</h3>
+                <p class="payload-text">
+                  The application data follows immediately. No sequence number, acknowledgement number, or window field is built into the header.
+                </p>
+              </div>
+            </div>
+
+            <span class="slide-page-number">09</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 10: 08 · SIDE-BY-SIDE                               -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="9" data-theme="mint">
+          <div class="slide-inner">
+            <div class="slide-tag">08 · SIDE-BY-SIDE</div>
+            <h2 class="slide-title">TCP and UDP make different trade-offs</h2>
+            <div class="slide-underline"></div>
+
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th class="th-char">CHARACTERISTIC</th>
+                    <th class="th-tcp">TCP</th>
+                    <th class="th-udp">UDP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-step="1">
+                    <td class="td-char">Connection type</td>
+                    <td class="td-tcp">Connection-oriented (Handshake required)</td>
+                    <td class="td-udp">Connectionless (Immediate dispatch)</td>
+                  </tr>
+                  <tr data-step="1">
+                    <td class="td-char">Reliability and ordering</td>
+                    <td class="td-tcp">Built in (Guaranteed in-order delivery)</td>
+                    <td class="td-udp">Not guaranteed (Best effort)</td>
+                  </tr>
+                  <tr data-step="1">
+                    <td class="td-char">Acknowledgements</td>
+                    <td class="td-tcp">Yes (ACK for received segments)</td>
+                    <td class="td-udp">No built-in ACK</td>
+                  </tr>
+                  <tr data-step="1">
+                    <td class="td-char">Retransmission</td>
+                    <td class="td-tcp">Yes (Automatic on lost/damaged packets)</td>
+                    <td class="td-udp">No built-in retransmission</td>
+                  </tr>
+                  <tr data-step="2">
+                    <td class="td-char">Minimum header</td>
+                    <td class="td-tcp"><strong>20 bytes</strong></td>
+                    <td class="td-udp"><strong>8 bytes</strong></td>
+                  </tr>
+                  <tr data-step="2">
+                    <td class="td-char">Overhead</td>
+                    <td class="td-tcp">Higher (Header fields & connection state)</td>
+                    <td class="td-udp">Lower (Minimal processing overhead)</td>
+                  </tr>
+                  <tr data-step="3">
+                    <td class="td-char">Common applications</td>
+                    <td class="td-tcp">Web (HTTP/S), file transfer (FTP), email (SMTP)</td>
+                    <td class="td-udp">Gaming, live media streaming, DNS, DHCP, VoIP</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <span class="slide-page-number">10</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 11: 09 · DESIGN CHOICE                              -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="10">
+          <div class="split-slide-container">
+            <!-- Left Crimson Hero -->
+            <div class="split-hero-crimson">
+              <div class="hero-pill-tag">09 · DESIGN CHOICE</div>
+              <h2 class="hero-giant-title">Choose<br>reliability<br>or low<br>latency</h2>
+              <div class="slide-underline" style="background-color: var(--accent-teal);"></div>
+              <p class="cover-subtitle" style="font-size: 26px;">
+                Start with what the application can tolerate: missing data, waiting, or both.
+              </p>
+            </div>
+
+            <!-- Right Content Mint -->
+            <div class="split-content-mint">
+              <div class="choice-list">
+                <div class="choice-item" data-step="1">
+                  <div class="choice-num-badge">01</div>
+                  <div class="choice-content">
+                    <h3 class="choice-question">Does every byte need to arrive?</h3>
+                    <div class="choice-answer">Yes → TCP</div>
+                    <p class="choice-detail">Reliable file transfer, database synchronization, and web communication.</p>
+                  </div>
+                </div>
+
+                <div class="feature-divider" data-step="2"></div>
+
+                <div class="choice-item" data-step="2">
+                  <div class="choice-num-badge">02</div>
+                  <div class="choice-content">
+                    <h3 class="choice-question">Is a late update worse than a lost one?</h3>
+                    <div class="choice-answer">Yes → UDP</div>
+                    <p class="choice-detail">Online gaming, live voice/video calls, and real-time audio streams.</p>
+                  </div>
+                </div>
+
+                <div class="feature-divider" data-step="3"></div>
+
+                <div class="choice-item" data-step="3">
+                  <div class="choice-num-badge">03</div>
+                  <div class="choice-content">
+                    <h3 class="choice-question">Is the exchange short and lightweight?</h3>
+                    <div class="choice-answer">Yes → UDP</div>
+                    <p class="choice-detail">Fast lookup queries, DNS resolution, and minimal request-response overhead.</p>
+                  </div>
+                </div>
+              </div>
+
+              <span class="slide-page-number">11</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 12: 10 · SPOT VIVA · ROLL NO. 05                    -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="11" data-theme="mint">
+          <div class="slide-inner">
+            <div class="viva-header-row">
+              <div class="slide-tag">10 · SPOT VIVA ASSESSMENT</div>
+              <div class="roll-shuffler-widget">
+                <div class="shuffler-meta">
+                  <span class="shuffler-dot"></span>
+                  <span class="shuffler-status-text">SELECTING CANDIDATE...</span>
+                </div>
+                <div class="shuffler-wheel-box">
+                  <div class="shuffler-wheel-strip" data-target-index="9" data-target-roll="05">
+                    <div class="wheel-digit">??</div>
+                    <div class="wheel-digit">14</div>
+                    <div class="wheel-digit">72</div>
+                    <div class="wheel-digit">29</div>
+                    <div class="wheel-digit">83</div>
+                    <div class="wheel-digit">41</div>
+                    <div class="wheel-digit">19</div>
+                    <div class="wheel-digit">66</div>
+                    <div class="wheel-digit">38</div>
+                    <div class="wheel-digit locked-target">05</div>
+                  </div>
+                </div>
+                <button class="shuffler-reroll-btn" title="Re-shuffle candidate" aria-label="Re-roll">↻</button>
+              </div>
+            </div>
+
+            <h2 class="slide-title">Spot Viva Challenge <span class="roll-selected-pill" data-roll="05"></span></h2>
+            <div class="slide-underline"></div>
+
+            <div class="viva-question-box">
+              <div class="viva-question-label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>TOPIC · CONNECTION ORIENTATION</span>
+              </div>
+              <div class="viva-question-text">
+                "Why is TCP called Connection-Oriented while UDP is Connectionless?"
+              </div>
+            </div>
+
+            <div class="viva-answer-grid">
+              <div class="viva-answer-card yellow-card" data-step="1">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">TCP: Connection-Oriented</h3>
+                  <span class="viva-card-tag yellow-tag">3-WAY HANDSHAKE</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>Handshake Setup:</strong> Negotiates sequence numbers (SYN → SYN-ACK → ACK) before sending data.</li>
+                  <li><strong>Stateful Session:</strong> Both endpoints track active state until connection is closed with FIN.</li>
+                </ul>
+              </div>
+
+              <div class="viva-answer-card teal-card" data-step="2">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">UDP: Connectionless</h3>
+                  <span class="viva-card-tag teal-tag">FIRE & FORGET</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>Zero Setup:</strong> Packets dispatch immediately with no prior handshake or session setup.</li>
+                  <li><strong>Stateless:</strong> Kernel maintains no connection tables; each datagram travels independently.</li>
+                </ul>
+              </div>
+            </div>
+
+            <span class="slide-page-number">12</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 13: 11 · SPOT VIVA · ROLL NO. 33                    -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="12" data-theme="mint">
+          <div class="slide-inner">
+            <div class="viva-header-row">
+              <div class="slide-tag">11 · SPOT VIVA ASSESSMENT</div>
+              <div class="roll-shuffler-widget">
+                <div class="shuffler-meta">
+                  <span class="shuffler-dot"></span>
+                  <span class="shuffler-status-text">SELECTING CANDIDATE...</span>
+                </div>
+                <div class="shuffler-wheel-box">
+                  <div class="shuffler-wheel-strip" data-target-index="9" data-target-roll="33">
+                    <div class="wheel-digit">??</div>
+                    <div class="wheel-digit">58</div>
+                    <div class="wheel-digit">12</div>
+                    <div class="wheel-digit">74</div>
+                    <div class="wheel-digit">09</div>
+                    <div class="wheel-digit">61</div>
+                    <div class="wheel-digit">23</div>
+                    <div class="wheel-digit">47</div>
+                    <div class="wheel-digit">85</div>
+                    <div class="wheel-digit locked-target">33</div>
+                  </div>
+                </div>
+                <button class="shuffler-reroll-btn" title="Re-shuffle candidate" aria-label="Re-roll">↻</button>
+              </div>
+            </div>
+
+            <h2 class="slide-title">Spot Viva Challenge <span class="roll-selected-pill" data-roll="33"></span></h2>
+            <div class="slide-underline"></div>
+
+            <div class="viva-question-box">
+              <div class="viva-question-label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>TOPIC · PROTOCOL HEADER OVERHEAD</span>
+              </div>
+              <div class="viva-question-text">
+                "Why is TCP's minimum header 20 bytes while UDP is only 8 bytes?"
+              </div>
+            </div>
+
+            <div class="viva-answer-grid">
+              <div class="viva-answer-card yellow-card" data-step="1">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">TCP: 20 Bytes Minimum</h3>
+                  <span class="viva-card-tag yellow-tag">CONTROL-RICH</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>Control Fields:</strong> Needs Sequence No., ACK No., Window Size, and 6 control flags.</li>
+                  <li><strong>Reliability Cost:</strong> Header overhead is required for in-order delivery and error recovery.</li>
+                </ul>
+              </div>
+
+              <div class="viva-answer-card teal-card" data-step="2">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">UDP: 8 Bytes Fixed</h3>
+                  <span class="viva-card-tag teal-tag">LEAN & FAST</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>4 Fields Only:</strong> Source Port, Destination Port, Length, and Checksum (2 bytes each).</li>
+                  <li><strong>60% Less Overhead:</strong> Strips away sequencing and flow control for minimal packet size.</li>
+                </ul>
+              </div>
+            </div>
+
+            <span class="slide-page-number">13</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 14: 12 · SPOT VIVA · ROLL NO. 57                    -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="13" data-theme="mint">
+          <div class="slide-inner">
+            <div class="viva-header-row">
+              <div class="slide-tag">12 · SPOT VIVA ASSESSMENT</div>
+              <div class="roll-shuffler-widget">
+                <div class="shuffler-meta">
+                  <span class="shuffler-dot"></span>
+                  <span class="shuffler-status-text">SELECTING CANDIDATE...</span>
+                </div>
+                <div class="shuffler-wheel-box">
+                  <div class="shuffler-wheel-strip" data-target-index="9" data-target-roll="57">
+                    <div class="wheel-digit">??</div>
+                    <div class="wheel-digit">08</div>
+                    <div class="wheel-digit">64</div>
+                    <div class="wheel-digit">21</div>
+                    <div class="wheel-digit">90</div>
+                    <div class="wheel-digit">15</div>
+                    <div class="wheel-digit">43</div>
+                    <div class="wheel-digit">79</div>
+                    <div class="wheel-digit">32</div>
+                    <div class="wheel-digit locked-target">57</div>
+                  </div>
+                </div>
+                <button class="shuffler-reroll-btn" title="Re-shuffle candidate" aria-label="Re-roll">↻</button>
+              </div>
+            </div>
+
+            <h2 class="slide-title">Spot Viva Challenge <span class="roll-selected-pill" data-roll="57"></span></h2>
+            <div class="slide-underline"></div>
+
+            <div class="viva-question-box">
+              <div class="viva-question-label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>TOPIC · LATENCY & REAL-TIME AUDIO</span>
+              </div>
+              <div class="viva-question-text">
+                "Why do real-time VoIP audio calls and Discord voice prefer UDP over TCP?"
+              </div>
+            </div>
+
+            <div class="viva-answer-grid">
+              <div class="viva-answer-card yellow-card" data-step="1">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">Strict Latency Limit (&lt;150ms)</h3>
+                  <span class="viva-card-tag yellow-tag">REAL-TIME</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>Human Interactivity:</strong> Two-way spoken audio conversation degrades noticeably if delay exceeds 150ms.</li>
+                  <li><strong>No Freezing:</strong> TCP retransmissions halt audio playback and cause intolerable call stutter.</li>
+                </ul>
+              </div>
+
+              <div class="viva-answer-card teal-card" data-step="2">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">Freshness Beats Recovery</h3>
+                  <span class="viva-card-tag teal-tag">TOLERATES LOSS</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>Late Audio is Junk:</strong> An audio packet arriving 300ms late is discarded by the speaker codec anyway.</li>
+                  <li><strong>Glitch &gt; Delay:</strong> Dropping a tiny millisecond sample is imperceptible compared to conversation lag.</li>
+                </ul>
+              </div>
+            </div>
+
+            <span class="slide-page-number">14</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 15: 13 · SPOT VIVA · ROLL NO. C0                    -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="14" data-theme="mint">
+          <div class="slide-inner">
+            <div class="viva-header-row">
+              <div class="slide-tag">13 · SPOT VIVA ASSESSMENT</div>
+              <div class="roll-shuffler-widget">
+                <div class="shuffler-meta">
+                  <span class="shuffler-dot"></span>
+                  <span class="shuffler-status-text">SELECTING CANDIDATE...</span>
+                </div>
+                <div class="shuffler-wheel-box">
+                  <div class="shuffler-wheel-strip" data-target-index="9" data-target-roll="C0">
+                    <div class="wheel-digit">??</div>
+                    <div class="wheel-digit">A1</div>
+                    <div class="wheel-digit">39</div>
+                    <div class="wheel-digit">B4</div>
+                    <div class="wheel-digit">76</div>
+                    <div class="wheel-digit">D2</div>
+                    <div class="wheel-digit">18</div>
+                    <div class="wheel-digit">F5</div>
+                    <div class="wheel-digit">42</div>
+                    <div class="wheel-digit locked-target">C0</div>
+                  </div>
+                </div>
+                <button class="shuffler-reroll-btn" title="Re-shuffle candidate" aria-label="Re-roll">↻</button>
+              </div>
+            </div>
+
+            <h2 class="slide-title">Spot Viva Challenge <span class="roll-selected-pill" data-roll="C0"></span></h2>
+            <div class="slide-underline"></div>
+
+            <div class="viva-question-box">
+              <div class="viva-question-label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>TOPIC · PACKET LOSS HANDLING</span>
+              </div>
+              <div class="viva-question-text">
+                "What happens when a packet is dropped in TCP versus UDP?"
+              </div>
+            </div>
+
+            <div class="viva-answer-grid">
+              <div class="viva-answer-card yellow-card" data-step="1">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">TCP: Auto Retransmission</h3>
+                  <span class="viva-card-tag yellow-tag">RELIABLE RECOVERY</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>Loss Detection:</strong> Detects missing ACK via timer expiration (RTO) or 3 Duplicate ACKs.</li>
+                  <li><strong>Resend & Throttle:</strong> Automatically resends lost segment and lowers send rate to relieve congestion.</li>
+                </ul>
+              </div>
+
+              <div class="viva-answer-card teal-card" data-step="2">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">UDP: Silent Loss</h3>
+                  <span class="viva-card-tag teal-tag">BEST EFFORT</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>Silent Drop:</strong> No ACK mechanism exists; sender is completely unaware of the dropped packet.</li>
+                  <li><strong>Zero Kernel Recovery:</strong> Lost packet is gone forever unless application code implements retries.</li>
+                </ul>
+              </div>
+            </div>
+
+            <span class="slide-page-number">15</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 16: 14 · SPOT VIVA · ROLL NO. 06                    -->
+        <!-- ========================================================= -->
+        <section class="slide" data-slide-index="15" data-theme="mint">
+          <div class="slide-inner">
+            <div class="viva-header-row">
+              <div class="slide-tag">14 · SPOT VIVA ASSESSMENT</div>
+              <div class="roll-shuffler-widget">
+                <div class="shuffler-meta">
+                  <span class="shuffler-dot"></span>
+                  <span class="shuffler-status-text">SELECTING CANDIDATE...</span>
+                </div>
+                <div class="shuffler-wheel-box">
+                  <div class="shuffler-wheel-strip" data-target-index="9" data-target-roll="06">
+                    <div class="wheel-digit">??</div>
+                    <div class="wheel-digit">31</div>
+                    <div class="wheel-digit">88</div>
+                    <div class="wheel-digit">17</div>
+                    <div class="wheel-digit">52</div>
+                    <div class="wheel-digit">69</div>
+                    <div class="wheel-digit">24</div>
+                    <div class="wheel-digit">73</div>
+                    <div class="wheel-digit">40</div>
+                    <div class="wheel-digit locked-target">06</div>
+                  </div>
+                </div>
+                <button class="shuffler-reroll-btn" title="Re-shuffle candidate" aria-label="Re-roll">↻</button>
+              </div>
+            </div>
+
+            <h2 class="slide-title">Spot Viva Challenge <span class="roll-selected-pill" data-roll="06"></span></h2>
+            <div class="slide-underline"></div>
+
+            <div class="viva-question-box">
+              <div class="viva-question-label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>TOPIC · PROTOCOL APPLICATION MAPPING</span>
+              </div>
+              <div class="viva-question-text">
+                "Name 2 common protocols that use TCP and 2 that use UDP, with brief technical reasons."
+              </div>
+            </div>
+
+            <div class="viva-answer-grid">
+              <div class="viva-answer-card yellow-card" data-step="1">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">TCP: HTTP/S & SSH</h3>
+                  <span class="viva-card-tag yellow-tag">ACCURACY CRITICAL</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>HTTP / HTTPS:</strong> Web pages and REST APIs cannot tolerate corrupted characters or lost bytes.</li>
+                  <li><strong>SSH / FTP:</strong> Remote shells and file transfers require 100% exact bit-for-bit delivery.</li>
+                </ul>
+              </div>
+
+              <div class="viva-answer-card teal-card" data-step="2">
+                <div class="viva-card-header">
+                  <h3 class="viva-card-title">UDP: DNS & DHCP</h3>
+                  <span class="viva-card-tag teal-tag">SPEED CRITICAL</span>
+                </div>
+                <ul class="viva-answer-bullets">
+                  <li><strong>DNS:</strong> Fast 1-packet lookup; connection handshake would double domain resolution time.</li>
+                  <li><strong>DHCP:</strong> Broadcasts IP settings to devices before any TCP connection can be established.</li>
+                </ul>
+              </div>
+            </div>
+
+            <span class="slide-page-number">16</span>
+          </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SLIDE 17: FULLSCREEN VIDEO CONCLUSION & THANK YOU         -->
+        <!-- ========================================================= -->
+        <section class="slide slide-fullscreen-video" data-slide-index="16">
+          <div class="fullscreen-video-container">
+            <video id="thank-video-player" class="fullscreen-thank-video" src="thankvideo.mp4" playsinline loop autoplay title="Click to play / pause video"></video>
+
+            <!-- Floating Conclusion Banner (Glides in on Spacebar Step 1) -->
+            <div class="video-overlay-banner" data-step="1">
+              <div class="video-overlay-content">
+                <div class="video-overlay-title">THANK YOU!</div>
+                <div class="video-overlay-sub">ANY QUESTIONS?</div>
+                <button class="hud-btn primary" onclick="window.presentation.goToSlide(0,0)" style="font-size: 15px; padding: 10px 22px; border-radius: 30px;" title="Restart from Slide 1 (F5)">
+                  ↺ Restart Presentation (F5)
+                </button>
+              </div>
+            </div>
+
+            <!-- Discrete Audio Toggle Button -->
+            <button id="btn-video-audio" class="video-audio-toggle" title="Toggle Video Audio (Mute / Unmute)">
+              <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+
+            <span class="slide-page-number" style="color: rgba(10, 32, 44, 0.6); z-index: 10;">17</span>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- FLOATING PRESENTER HUD CONTROLS                           -->
+  <!-- ========================================================= -->
+  <aside id="hud-controls" class="hud-controls">
+    <!-- Prev Step (Backspace/Left) -->
+    <button id="btn-prev-step" class="hud-btn" title="Previous Step (Backspace / Left Arrow)">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <span>Step</span>
+    </button>
+
+    <!-- Next Step (Spacebar/Right) -->
+    <button id="btn-next-step" class="hud-btn primary" title="Next Step (Spacebar / Right Arrow)">
+      <span>Step</span>
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <div class="hud-separator"></div>
+
+    <!-- Prev Slide -->
+    <button id="btn-prev-slide" class="hud-btn" title="Previous Slide (Up Arrow / PageUp)">
+      <svg viewBox="0 0 24 24"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
+    </button>
+
+    <!-- Slide Counter & Step Pill -->
+    <div class="hud-counter">
+      <span id="hud-slide-counter">01 / 12</span>
+      <span id="hud-step-pill" class="hud-step-pill">Step 0 / 2</span>
+    </div>
+
+    <!-- Next Slide -->
+    <button id="btn-next-slide" class="hud-btn" title="Next Slide (Down Arrow / PageDown)">
+      <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+    </button>
+
+    <div class="hud-separator"></div>
+
+    <!-- Overview Drawer (O) -->
+    <button id="btn-overview" class="hud-btn" title="Slide Overview Grid (O)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    </button>
+
+    <!-- Fullscreen Toggle (F) -->
+    <button id="btn-fullscreen" class="hud-btn" title="Toggle Fullscreen (F)">
+      <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+    </button>
+
+    <!-- Audio Synth Click -->
+    <button id="btn-sound" class="hud-btn" title="Presenter Sound Effects">
+      <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    </button>
+
+    <!-- Keyboard Shortcuts (?) -->
+    <button id="btn-shortcuts" class="hud-btn" title="Keyboard Shortcuts (?)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </button>
+  </aside>
+
+  <!-- ========================================================= -->
+  <!-- SLIDE OVERVIEW MODAL (THUMBNAIL DRAWER)                    -->
+  <!-- ========================================================= -->
+  <div id="overview-modal" class="overview-modal">
+    <div class="overview-header">
+      <div class="overview-title">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Presentation Slide Overview</span>
+      </div>
+      <button id="btn-close-overview" class="hud-btn" style="background: rgba(255,255,255,0.1); border-radius: 50%; width: 40px; height: 40px;">✕</button>
+    </div>
+
+    <div class="overview-grid">
+      <div class="thumbnail-card active-thumb" onclick="window.presentation.goToSlide(0,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_1.png" alt="Slide 1"></div>
+        <div class="thumbnail-info"><span class="thumb-num">01</span><span class="thumb-title">Cover: TCP and UDP</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(1,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_2.png" alt="Slide 2"></div>
+        <div class="thumbnail-info"><span class="thumb-num">02</span><span class="thumb-title">The Transport Layer</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(2,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_3.png" alt="Slide 3"></div>
+        <div class="thumbnail-info"><span class="thumb-num">03</span><span class="thumb-title">TCP: Reliable Delivery</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(3,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_4.png" alt="Slide 4"></div>
+        <div class="thumbnail-info"><span class="thumb-num">04</span><span class="thumb-title">Three-Way Handshake</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(4,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_5.png" alt="Slide 5"></div>
+        <div class="thumbnail-info"><span class="thumb-num">05</span><span class="thumb-title">TCP Segment Format</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(5,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_6.png" alt="Slide 6"></div>
+        <div class="thumbnail-info"><span class="thumb-num">06</span><span class="thumb-title">TCP Delivery Flow</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(6,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_7.png" alt="Slide 7"></div>
+        <div class="thumbnail-info"><span class="thumb-num">07</span><span class="thumb-title">UDP: Lightweight</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(7,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_8.png" alt="Slide 8"></div>
+        <div class="thumbnail-info"><span class="thumb-num">08</span><span class="thumb-title">UDP Delivery Flow</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(8,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_9.png" alt="Slide 9"></div>
+        <div class="thumbnail-info"><span class="thumb-num">09</span><span class="thumb-title">UDP Datagram Format</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(9,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_10.png" alt="Slide 10"></div>
+        <div class="thumbnail-info"><span class="thumb-num">10</span><span class="thumb-title">Side-by-Side Comparison</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(10,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_11.png" alt="Slide 11"></div>
+        <div class="thumbnail-info"><span class="thumb-num">11</span><span class="thumb-title">Design Choice</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(11,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_12.png" alt="Slide 12"></div>
+        <div class="thumbnail-info"><span class="thumb-num">12</span><span class="thumb-title">Roll 05: Connection</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(12,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_13.png" alt="Slide 13"></div>
+        <div class="thumbnail-info"><span class="thumb-num">13</span><span class="thumb-title">Roll 33: Header Size</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(13,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_14.png" alt="Slide 14"></div>
+        <div class="thumbnail-info"><span class="thumb-num">14</span><span class="thumb-title">Roll 57: Real-Time Audio</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(14,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_15.png" alt="Slide 15"></div>
+        <div class="thumbnail-info"><span class="thumb-num">15</span><span class="thumb-title">Roll C0: Packet Loss</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(15,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_16.png" alt="Slide 16"></div>
+        <div class="thumbnail-info"><span class="thumb-num">16</span><span class="thumb-title">Roll 06: App Mapping</span></div>
+      </div>
+      <div class="thumbnail-card" onclick="window.presentation.goToSlide(16,0)">
+        <div class="thumbnail-img-box"><img src="assets/thumbnails/slide_17.png" alt="Slide 17"></div>
+        <div class="thumbnail-info"><span class="thumb-num">17</span><span class="thumb-title">Takeaway & Q&A</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- KEYBOARD SHORTCUTS MODAL                                  -->
+  <!-- ========================================================= -->
+  <div id="shortcuts-modal" class="shortcuts-modal">
+    <div class="shortcuts-card">
+      <div class="shortcuts-header">
+        <h3 class="shortcuts-title">PowerPoint Presenter Controls</h3>
+        <button id="btn-close-shortcuts" class="hud-btn" style="background: rgba(255,255,255,0.1); border-radius: 50%; width: 36px; height: 36px;">✕</button>
+      </div>
+      <div class="shortcuts-list">
+        <div class="shortcut-row">
+          <span class="key-desc">Advance animation step / next slide</span>
+          <span class="key-badge">Spacebar / Right Arrow</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Reverse animation step / prev slide</span>
+          <span class="key-badge">Backspace / Left Arrow</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Jump to next slide</span>
+          <span class="key-badge">Down Arrow / PageDown</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Jump to previous slide</span>
+          <span class="key-badge">Up Arrow / PageUp</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Jump to first slide</span>
+          <span class="key-badge">Home / F5</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Jump to last slide</span>
+          <span class="key-badge">End</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Toggle fullscreen mode</span>
+          <span class="key-badge">F</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Toggle slide overview grid</span>
+          <span class="key-badge">O</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Close modal / Exit fullscreen</span>
+          <span class="key-badge">Esc</span>
+        </div>
+        <div class="shortcut-row">
+          <span class="key-desc">Keyboard shortcuts reference</span>
+          <span class="key-badge">?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/background-particles.js"></script>
+  <script src="js/presentation-engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+[
+  {
+    "page": 1,
+    "text": "COMPUTER NETWORKS · TRANSPORT LAYER\nTCP AND UDPIN COMPUTER NETWORKS\nHow applications exchange data, and why reliability and latency lead to \ndifferent choices.\nSeminar overview · connection, delivery, and trade-offs\n",
+    "images_count": 2,
+    "image_names": [
+      "X4.jpg",
+      "Image-7098480789.png"
+    ]
+  },
+  {
+    "page": 2,
+    "text": "01 · THE TRANSPORT LAYER\nThe transport layer connects applications\nIP moves packets between hosts; the transport layer moves data between applications on those hosts. Port numbers \nidentify the sending and receiving applications. TCP and UDP sit above IP and below application protocols.\nApplication\nWeb, video, games, DNS\nTransport\nTCP or UDP\nPorts and delivery behavior\nNetwork\nIP addresses and routing\nApplication data becomes transport segments or datagrams, then IP packets.\n02\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-9742682568.png"
+    ]
+  },
+  {
+    "page": 3,
+    "text": "TCP · TRANSMISSION CONTROL PROTOCOL\nRELIABLEDELIVERY\nOVERHEAD IS THE TRADE\nTCP trades overhead \nfor reliability\nConnection-oriented\nTCP establishes a connection before application \ndata flows.\nReliable and ordered\nSequence numbers, acknowledgements, and \nretransmission help deliver complete data in \norder.\nFamiliar example\nLoading a web page or transferring a file favors \ncorrectness over the smallest possible delay.\n03\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-2000805986.png"
+    ]
+  },
+  {
+    "page": 4,
+    "text": "02 · TCP CONNECTION SETUP\nTCP starts with a three-way handshake\nBefore data transfer, both endpoints agree to begin a connection and synchronize sequence numbers.\n01\nCLIENT → SERVER\nSYN\nClient requests a connection.\n02\nSERVER → CLIENT\nSYN + ACK\nServer accepts and \nacknowledges.\n03\nCLIENT → SERVER\nACK\nClient confirms. Connection \nEstablished.\n04\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-9750469207.png"
+    ]
+  },
+  {
+    "page": 5,
+    "text": "03 · TCP SEGMENT FORMAT\nTCP headers carry delivery control\n32-BIT \nROW\nFIELD BITS\n1 Source Port · Destination Port 16 + 16\n2 Sequence Number 32\n3 Acknowledgment Number 32\n4 Data Offset · Reserved · Control \nFlags · Window Size\n4 + 6 + 6 + 16\n5 Checksum · Urgent Pointer 16 + 16\n— Options and Padding, if present Variable\nFIELD PURPOSE\nSending application · Receiving application\nOrder and loss detection\nNext byte expected\nHeader size and state · Flow control\nIntegrity and urgent data\nExtends and aligns header\nMINIMUM HEADER\n20 bytes before \nthe Data/Payload.\nAFTER THE \nHEADER\nData / Payload \ncarries application \ncontent.\n05\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-7572533686.png"
+    ]
+  },
+  {
+    "page": 6,
+    "text": "04 · TCP DELIVERY\nTCP moves data through the network\nENDPOINT A\nCLIENT\nApplication sends \nbytes.\nDATA →\nNETWORK HOP\nROUTER\nForwards IP packets.\n→  DATA\nENDPOINT B\nSERVER\nReceives bytes.\n←  ACK\nThe acknowledgement confirms receipt. If data is missing, TCP can retransmit it.\n06\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-8450180107.png"
+    ]
+  },
+  {
+    "page": 7,
+    "text": "05 · UDP · USER DATAGRAM PROTOCOL\nUDP keeps communication \nlightweight\nUDP is connectionless: independent datagrams need no session.\nLow overhead\nSmall headers and no handshake mean fast setup.\nFew built-in guarantees\nUDP does not promise delivery, ordering, or retransmission.\nOnline gaming\nOnline gaming favors fresh positions over recovered old updates.\n07\n",
+    "images_count": 2,
+    "image_names": [
+      "X7.jpg",
+      "Image-8659871878.png"
+    ]
+  },
+  {
+    "page": 8,
+    "text": "06 · UDP DELIVERY\nUDP sends datagrams without retransmission\nCLIENT\nSend\nDatagrams leave \nindependently.\nDATAGRAM 1  →   ROUTER  →   SERVER\nDATAGRAM 2  →   ROUTER  →   SERVER\nDATAGRAM 3  →   ROUTER  ✕  LOST\nSERVER\nContinue\nNo built-in retransmission. The \napplication decides what to do \nnext.\nThe trade-off: less waiting and less overhead, with less delivery control.\n08\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-5824662338.png"
+    ]
+  },
+  {
+    "page": 9,
+    "text": "07 · UDP DATAGRAM FORMAT\nUDP headers are intentionally small\n16 BITS 16 BITS 16 BITS 16 BITS\nSource Port Destination Port Length Checksum\n8 bytes\nMINIMUM HEADER\nAFTER THE FOUR FIELDS\nData / Payload\nThe application data follows immediately. No sequence number, \nacknowledgement number, or window field is built into the header.\n09\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-1848524175.png"
+    ]
+  },
+  {
+    "page": 10,
+    "text": "08 · SIDE-BY-SIDE\nTCP and UDP make different trade-offs\nCHARACTERISTIC TCP UDP\nConnection type Connection-oriented Connectionless\nReliability and ordering Built in Not guaranteed\nAcknowledgements Yes No built-in ACK\nRetransmission Yes No built-in retransmission\nMinimum header 20 bytes 8 bytes\nOverhead Higher Lower\nCommon applications Web, file transfer Gaming, live media, DNS\n10\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-7888911063.png"
+    ]
+  },
+  {
+    "page": 11,
+    "text": "09 · DESIGN CHOICE\nChoose \nreliability or low \nlatency\nStart with what the application can \ntolerate: missing data, waiting, or \nboth.\n01 Does every byte need to arrive?\nYes → TCP\nReliable file transfer and web communication.\n02 Is a late update worse than a \nlost one?\nYes → UDP\nOnline gaming and live media.\n03 Is the exchange short and \nli ht i ht?\n11\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-979344929.png"
+    ]
+  },
+  {
+    "page": 12,
+    "text": "TAKEAWAY\nTCPRELIABILITY\nORDER · ACKNOWLEDGEMENT · RECOVERY\nTCP is reliability-\nfocused; UDP is \nlatency-friendly\nTCP pays for dependable, ordered \ndelivery. UDP keeps the path \nlightweight and fast, leaving more \ndecisions to the application.\nTHANK YOU\nANY QUESTIONS?\n",
+    "images_count": 1,
+    "image_names": [
+      "Image-2708199956.png"
+    ]
+  }
+]
